@@ -1,0 +1,32 @@
+<p>users-list works!</p>
+<!--<div-->
+<!--  *ngFor="let user of users | async"-->
+<!--&gt;-->
+<!--  <div class="card-body p-2 text-center">-->
+<!--    <div>-->
+<!--      <h5>{{user.name}}</h5>-->
+<!--      <h5>{{user.phone}}</h5>-->
+<!--      <h5>{{user.email}}</h5>-->
+<!--&lt;!&ndash;      <button class="btn btn-success" [routerLink]="['user', user.id]">&ndash;&gt;-->
+<!--&lt;!&ndash;        Details&ndash;&gt;-->
+<!--&lt;!&ndash;      </button>&ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="col-4 mx-2 mt-2">
+  <div
+    *ngFor="let user of users | async"
+  >
+    <div>
+      <div>
+        <h5>{{user.name}}</h5>
+        <h5>{{user.id}}</h5>
+<!--        <button class="btn btn-success" [routerLink]="['user', user.id]">-->
+<!--          Details-->
+<!--        </button>        -->
+        <h5>{{user.phone}}</h5>
+        <h5>{{user.email}}</h5>
+      </div>
+    </div>
+  </div>
+</div>

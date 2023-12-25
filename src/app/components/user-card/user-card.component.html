@@ -1,0 +1,12 @@
+<div class="card" *ngIf="user | async as user ">
+  <div class="card-header">
+    {{ user.id }}
+    {{ user.name }}
+  </div>
+  <div class="card-body">
+    <p>Email: {{ user.email }}</p>
+    <p>Телефон: {{ user.phone }}</p>
+    <!-- Добавьте другие поля пользователя, если необходимо -->
+  </div>
+</div>
+
