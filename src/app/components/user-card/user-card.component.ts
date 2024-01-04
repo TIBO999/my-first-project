@@ -1,26 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {UserApiService} from "../../services/user-api.service";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {User} from "../../user";
-import {Observable, map} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {AsyncPipe, NgIf, NgStyle} from "@angular/common";
+import {CardModule, CDBFreeModule} from "ng-cdbangular";
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
   imports: [
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    CardModule,
+    CDBFreeModule,
+    NgStyle
   ],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.css'
 })
-export class UserCardComponent implements OnInit{
-  id!: number;
-  user!: Observable<User>;
-  constructor(private activatedRoute: ActivatedRoute, private userApiService: UserApiService) {
-  }
-  ngOnInit(): void {
-    this.user = this.activatedRoute.data.pipe(map((data) => data?.['user'] ))
-  }
+export class UserCardComponent {
+  @Input({required: true})
+  public user!: User;
+  @Output()
+  public deleteUser: EventEmitter<User> = new EventEmitter<User>();
 }

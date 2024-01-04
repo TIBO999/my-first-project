@@ -13,20 +13,16 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
-<div class="col-4 mx-2 mt-2">
-  <div
-    *ngFor="let user of users | async"
-  >
-    <div>
-      <div>
-        <h5>{{user.name}}</h5>
-        <h5>{{user.id}}</h5>
-<!--        <button class="btn btn-success" [routerLink]="['user', user.id]">-->
-<!--          Details-->
-<!--        </button>        -->
-        <h5>{{user.phone}}</h5>
-        <h5>{{user.email}}</h5>
-      </div>
-    </div>
-  </div>
+<!--<div  class="card bg-dark text-white mt-2"-->
+<!--      style="border-radius: 1rem">-->
+
+
+<div style="display: flex; flex-direction: column; margin: 20px; align-items: center">
+  <ng-container *ngFor="let user of users">
+    <app-user-card [user]="user"
+    (deleteUser)="deleteUser($event)"
+    ></app-user-card >
+  </ng-container>
 </div>
+
+
