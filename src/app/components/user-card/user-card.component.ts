@@ -21,4 +21,5 @@ export class UserCardComponent {
   public user!: User;
   @Output()
   public deleteUser: EventEmitter<User> = new EventEmitter<User>();
+  // public openEditUserDialog: EventEmitter<User> = new EventEmitter<User>();
 }

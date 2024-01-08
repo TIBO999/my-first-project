@@ -16,12 +16,12 @@
 <!--<div  class="card bg-dark text-white mt-2"-->
 <!--      style="border-radius: 1rem">-->
 
-<header style="display: flex; flex-direction: column; margin: 20px; align-items: center">
+<header style="display: flex; margin: 20px; justify-content: center">
   <button mat-raised-button (click)="openAddUserDialog()">
     Добавить пользователя
   </button>
 </header>
-<div style="display: flex; flex-direction: column; margin: 20px; align-items: center">
+<div style="display: flex; flex-wrap: wrap; margin: 20px; justify-content: start">
   <ng-container *ngFor="let user of users">
     <app-user-card [user]="user"
     (deleteUser)="deleteUser($event)"

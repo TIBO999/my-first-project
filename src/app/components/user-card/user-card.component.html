@@ -1,22 +1,27 @@
 <div style="margin: 10px">
   <CDBCard color="primary"
-           style="width: 25rem">
-    <CDBCardBody style="display: flex; flex-direction: column; align-items: center">
-      <CDBCardTitle>
-        ID: {{ user.id }}
-      </CDBCardTitle>
-      <CDBCardTitle>
-        {{ user.name }}
-      </CDBCardTitle>
-      <CDBCardText>Phone: {{ user.phone }}</CDBCardText>
-      <CDBCardText>Email: {{ user.email }}</CDBCardText>
+           style="min-width: 300px; min-height: 250px; border-radius: 7px">
+    <CDBCardBody style="display: flex; flex-direction: column; align-items: start">
+      <CDBCardTitle style="margin: 5px">ID: {{ user.id }} </CDBCardTitle>
+      <CDBCardTitle style="margin: 5px"> {{ user.name }} </CDBCardTitle>
+      <CDBCardText style="margin: 5px">Phone: {{ user.phone }}</CDBCardText>
+      <CDBCardText style="margin: 5px">Email: {{ user.email }}</CDBCardText>
       <CDBBtn (click)="deleteUser.emit(user)"
               [circle]=true
               [flat]=true
               class="mt-3"
               color="light"
-              style="margin: 3px; font-weight: bold; color: red; border-color: purple">
+              style="margin: 5px; font-weight: bold; color: red; border-color: purple">
         REMOVE
+      </CDBBtn>
+<!--      <CDBBtn (click)="editUser.emit(user) -->
+<!--      <CDBBtn (click)="openEditUserDialog()"-->
+      <CDBBtn [circle]=true
+              [flat]=true
+              class="mt-3"
+              color="light"
+              style="margin: 5px; font-weight: bold; color: red; border-color: purple">
+        EDIT
       </CDBBtn>
     </CDBCardBody>
   </CDBCard>

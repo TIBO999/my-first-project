@@ -1,16 +1,20 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content style="display: flex; flex-direction: column; flex-wrap: wrap">
   <p>Add new user</p>
   <mat-form-field>
-    <mat-label>New user</mat-label>
+    <mat-label>ID</mat-label>
     <input matInput [(ngModel)]="data.id">
-    <hr>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="data.name">
-    <hr>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Phone</mat-label>
     <input matInput [(ngModel)]="data.phone">
-    <hr>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>email</mat-label>
     <input matInput [(ngModel)]="data.email">
-    <hr>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

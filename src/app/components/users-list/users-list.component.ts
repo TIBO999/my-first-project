@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {User} from "../../user";
 import {UserApiService} from "../../services/user-api.service";
 import {AsyncPipe, NgForOf} from "@angular/common";
@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {UsersListComponentDialog} from "./users-list-component-dialog/users-list-component-dialog";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {LocalStorageService} from "../../services/local-storage.service";
 
 @Component({
   selector: 'app-users-list',
@@ -29,15 +30,27 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 export class UsersListComponent implements OnInit {
   users!: User[];
-
+  private readonly userLocalStorage = inject(LocalStorageService);
 
   constructor(
     private userApiService: UserApiService,
     public dialog: MatDialog,
-  ) {}
+  ){}
 
   ngOnInit(): void {
-    this.userApiService.getUsers().subscribe((data: User[]) => this.users = data)
+    // проверка наличия массива users в local storage, если да - берем из local storage
+    // else - запрос на сервер и загрузка users в local storage
+    const  users = this.userLocalStorage.get("users");
+    if(users !== null){
+        this.users = JSON.parse(users)
+    }
+    else
+    {
+      this.userApiService.getUsers().subscribe((data: User[]) => {
+        this.users = data;
+        this.userLocalStorage.set("users", JSON.stringify(this.users))
+      });
+    }
   }
 
   /** public deleteUser(user: User) {
@@ -48,7 +61,15 @@ export class UsersListComponent implements OnInit {
     this.users = this.users.filter((user) =>
        userToDelete.id !== user.id
     );
+    this.userLocalStorage.set("users", JSON.stringify(this.users));
+
+  // }  public editUser(userToEdit: User) {
+  //   this.users = this.users.filter((user) =>
+  //     userToEdit.id !== user.id
+  //   );
+  //   this.userLocalStorage.set("users", JSON.stringify(this.users));
   }
+
 
   openAddUserDialog() {
     const dialogRef = this.dialog.open(UsersListComponentDialog, {
@@ -58,9 +79,22 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: User) => {
       console.log('The dialog was closed', result);
       if (result)
-      {this.users.push(result);}
+      {this.users.push(result)}
+      this.userLocalStorage.set("users", JSON.stringify(this.users))
     });
   }
+  /**openEditUserDialog() {
+    const dialogRef = this.dialog.open(UsersListComponentDialog, {
+      data: {name: null, email: null, phone: null},
+    });
+
+    dialogRef.afterClosed().subscribe((result: User) => {
+      console.log('The dialog was closed', result);
+      if (result)
+      {this.users.push(result)}
+      this.userLocalStorage.set("users", JSON.stringify(this.users))
+    });
+  }*/
 }
 
 
