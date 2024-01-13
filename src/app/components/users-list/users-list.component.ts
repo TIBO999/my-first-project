@@ -53,29 +53,31 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  /** public deleteUser(user: User) {
-   this.users.splice(this.users.indexOf(user), 1);
-   }  */
-
   public deleteUser(userToDelete: User) {
     this.users = this.users.filter((user) =>
        userToDelete.id !== user.id
     );
     this.userLocalStorage.set("users", JSON.stringify(this.users));
-
-  // }  public editUser(userToEdit: User) {
-  //   this.users = this.users.filter((user) =>
-  //     userToEdit.id !== user.id
-  //   );
-  //   this.userLocalStorage.set("users", JSON.stringify(this.users));
   }
-
+  public editUser(userToEdit: User) {
+    const dialogRef = this.dialog.open(UsersListComponentDialog, {
+      data: {id: userToEdit.id, name: userToEdit.name, email: userToEdit.email, phone: userToEdit.phone},
+    });
+    dialogRef.afterClosed().subscribe((editedUser: User) => {
+      console.log('The dialog was closed', editedUser);
+      if (editedUser) {
+        this.users = this.users.map(user =>
+          user.id === editedUser.id ? editedUser : user
+        )
+      }
+      this.userLocalStorage.set("users", JSON.stringify(this.users))
+    });
+  }
 
   openAddUserDialog() {
     const dialogRef = this.dialog.open(UsersListComponentDialog, {
-      data: {name: null, email: null, phone: null},
+      data: {id: new Date().getTime(), name: null, email: null, phone: null},
     });
-
     dialogRef.afterClosed().subscribe((result: User) => {
       console.log('The dialog was closed', result);
       if (result)
@@ -83,20 +85,4 @@ export class UsersListComponent implements OnInit {
       this.userLocalStorage.set("users", JSON.stringify(this.users))
     });
   }
-  /**openEditUserDialog() {
-    const dialogRef = this.dialog.open(UsersListComponentDialog, {
-      data: {name: null, email: null, phone: null},
-    });
-
-    dialogRef.afterClosed().subscribe((result: User) => {
-      console.log('The dialog was closed', result);
-      if (result)
-      {this.users.push(result)}
-      this.userLocalStorage.set("users", JSON.stringify(this.users))
-    });
-  }*/
 }
-
-
-
-

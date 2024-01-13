@@ -1,8 +1,8 @@
 <div mat-dialog-content style="display: flex; flex-direction: column; flex-wrap: wrap">
-  <p>Add new user</p>
+<!--  <p>Add new user</p>-->
   <mat-form-field>
     <mat-label>ID</mat-label>
-    <input matInput [(ngModel)]="data.id">
+    <input disabled matInput [(ngModel)]="data.id">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Name</mat-label>
@@ -19,5 +19,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>No Thanks</button>
-  <button mat-button [mat-dialog-close]="data">Ok</button>
+  <button mat-button [mat-dialog-close]="{id: data.id,email: data.email, name: data.name, phone: data.phone}">Ok</button>
 </div>

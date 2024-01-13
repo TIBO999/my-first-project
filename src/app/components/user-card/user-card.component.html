@@ -14,13 +14,12 @@
               style="margin: 5px; font-weight: bold; color: red; border-color: purple">
         REMOVE
       </CDBBtn>
-<!--      <CDBBtn (click)="editUser.emit(user) -->
-<!--      <CDBBtn (click)="openEditUserDialog()"-->
-      <CDBBtn [circle]=true
-              [flat]=true
-              class="mt-3"
-              color="light"
-              style="margin: 5px; font-weight: bold; color: red; border-color: purple">
+      <CDBBtn  (click)="editUser.emit(user)"
+               [circle]=true
+               [flat]=true
+               class="mt-3"
+               color="light"
+               style="margin: 5px; font-weight: bold; color: red; border-color: purple">
         EDIT
       </CDBBtn>
     </CDBCardBody>
