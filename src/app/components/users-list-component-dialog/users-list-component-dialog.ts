@@ -10,7 +10,7 @@ import {
   MatDialogContent,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {User} from "../../../user";
+import {User} from "../../types/user";
 
 @Component({
   selector: 'users-list-component-dialog',

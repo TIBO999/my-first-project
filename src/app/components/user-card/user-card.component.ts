@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {User} from "../../user";
+import {User} from "../../types/user";
 import {AsyncPipe, NgIf, NgStyle} from "@angular/common";
 import {CardModule, CDBFreeModule} from "ng-cdbangular";
 

@@ -3,7 +3,7 @@
            style="min-width: 300px; min-height: 250px; border-radius: 7px">
     <CDBCardBody style="display: flex; flex-direction: column; align-items: start">
       <CDBCardTitle style="margin: 5px">ID: {{ user.id }} </CDBCardTitle>
-      <CDBCardTitle style="margin: 5px"> {{ user.name }} </CDBCardTitle>
+      <CDBCardTitle style="margin: 5px">: {{ user.name }} </CDBCardTitle>
       <CDBCardText style="margin: 5px">Phone: {{ user.phone }}</CDBCardText>
       <CDBCardText style="margin: 5px">Email: {{ user.email }}</CDBCardText>
       <CDBBtn (click)="deleteUser.emit(user)"
