@@ -10,7 +10,7 @@ import {provideStoreDevtools} from "@ngrx/store-devtools";
 import {UserEffects} from "./state/users.effect";
 import { provideEffects } from '@ngrx/effects';
 
-// export const LOCAL_STORAGE_USERS_KEY = new InjectionToken<string>('LOCAL_STORAGE_USERS_KEY')
+export const LOCAL_STORAGE_USERS_KEY = new InjectionToken<string>('LOCAL_STORAGE_USERS_KEY')
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,9 +30,9 @@ export const appConfig: ApplicationConfig = {
     provideEffects(
       UserEffects,
     ),
-    // {
-    //   provide: LOCAL_STORAGE_USERS_KEY,
-    //   useValue: 'users'
-    // }
+    {
+      provide: LOCAL_STORAGE_USERS_KEY,
+      useValue: 'users'
+    }
 ]
 };

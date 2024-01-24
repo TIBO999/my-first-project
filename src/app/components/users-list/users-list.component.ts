@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {User} from "../../types/user";
 import {UserApiService} from "../../services/user-api.service";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {AsyncPipe, CommonModule, NgForOf} from "@angular/common";
 import {UserCardComponent} from "../user-card/user-card.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -11,8 +11,9 @@ import {UsersListComponentDialog} from "../users-list-component-dialog/users-lis
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {LocalStorageService} from "../../services/local-storage.service";
 import {Store} from "@ngrx/store";
-import {UsersActions} from "../../state/users.actions";
-import {selectUsers} from "../../state/users.selectors";
+import {loadUsers} from "../../state/users.actions";
+import {LOCAL_STORAGE_USERS_KEY} from "../../app.config";
+
 
 @Component({
   selector: 'app-users-list',
@@ -26,6 +27,7 @@ import {selectUsers} from "../../state/users.selectors";
     FormsModule,
     MatButtonModule,
     MatDialogModule,
+    CommonModule
   ],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
@@ -35,6 +37,8 @@ export class UsersListComponent implements OnInit {
   private store: Store = inject(Store);
   users!: User[];
   private readonly userLocalStorage = inject(LocalStorageService);
+  private localStorageKey = inject(LOCAL_STORAGE_USERS_KEY)
+
 
   constructor(
     private userApiService: UserApiService,
@@ -44,17 +48,18 @@ export class UsersListComponent implements OnInit {
   ngOnInit(): void {
     // проверка наличия массива users в local storage, если да - берем из local storage
     // else - запрос на сервер и загрузка users в local storage
-    const  users = this.userLocalStorage.get("users");
-    if(users !== null){
-        this.users = JSON.parse(users)
+    const  users = this.userLocalStorage.get(this.localStorageKey);
+    if(users){
+        this.users = users
     }
     else
     {
       this.userApiService.getUsers().subscribe((data: User[]) => {
         this.users = data;
-        this.userLocalStorage.set("users", JSON.stringify(this.users))
+        this.userLocalStorage.set(this.localStorageKey, JSON.stringify(this.users))
       });
-      this.store.dispatch(UsersActions.loadUsers)
+      // @ts-ignore
+      this.store.dispatch(loadUsers);
     }
   }
 
