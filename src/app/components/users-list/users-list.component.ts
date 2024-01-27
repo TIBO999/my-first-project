@@ -56,7 +56,7 @@ export class UsersListComponent implements OnInit {
     {
       this.userApiService.getUsers().subscribe((data: User[]) => {
         this.users = data;
-        this.userLocalStorage.set(this.localStorageKey, JSON.stringify(this.users))
+        this.userLocalStorage.set(this.localStorageKey, this.users)
       });
       // @ts-ignore
       this.store.dispatch(loadUsers);
@@ -67,7 +67,7 @@ export class UsersListComponent implements OnInit {
     this.users = this.users.filter((user) =>
        userToDelete.id !== user.id
     );
-    this.userLocalStorage.set("users", JSON.stringify(this.users));
+    this.userLocalStorage.set("users", this.users);
   }
 
   public editUser(userToEdit: User) {
@@ -81,7 +81,7 @@ export class UsersListComponent implements OnInit {
           user.id === editedUser.id ? editedUser : user
         )
       }
-      this.userLocalStorage.set("users", JSON.stringify(this.users))
+      this.userLocalStorage.set("users", this.users)
     });
   }
 
@@ -93,7 +93,7 @@ export class UsersListComponent implements OnInit {
       console.log('The dialog was closed', result);
       if (result)
       {this.users.push(result)}
-      this.userLocalStorage.set("users", JSON.stringify(this.users))
+      this.userLocalStorage.set("users", this.users)
     });
   }
 }
